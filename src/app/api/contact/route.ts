@@ -8,15 +8,27 @@ export async function POST(req: Request) {
 
     const body = await req.json();
 
-    if (!process.env.RESEND_API_KEY) {
+    const {
 
-      console.error("RESEND_API_KEY is missing");
+      firstName,
+
+      lastName,
+
+      email,
+
+      company,
+
+      message,
+
+    } = body;
+
+    if (!email || !message || !firstName || !lastName) {
 
       return NextResponse.json(
 
-        { ok: false, error: "Mail service not configured" },
+        { error: "Pflichtfelder fehlen" },
 
-        { status: 500 }
+        { status: 400 }
 
       );
 
@@ -26,35 +38,42 @@ export async function POST(req: Request) {
 
     await resend.emails.send({
 
-      from: "LayGrid <no-reply@laygrid.ch>",
+      from: "LayGrid <onboarding@resend.dev>", // WICHTIG
 
-      to: ["laygrid@outlook.com"],
+      to: "laygrid@outlook.com",               // deine echte Zieladresse
 
-      replyTo: body.email,
+      replyTo: email,                          // Antworten gehen an Absender
 
-      subject: "Neue Kontaktanfrage",
+      subject: "Neue Kontaktanfrage über LayGrid",
 
       html: `
-<strong>Name:</strong> ${body.firstName} ${body.lastName}<br/>
-<strong>Firma:</strong> ${body.company}<br/>
-<strong>E-Mail:</strong> ${body.email}<br/><br/>
-<strong>Nachricht:</strong><br/>
+<div style="font-family: Arial, sans-serif; line-height: 1.6;">
+<h2>Neue Kontaktanfrage</h2>
+<p><strong>Name:</strong> ${firstName} ${lastName}</p>
+<p><strong>E-Mail:</strong> ${email}</p>
+<p><strong>Firma:</strong> ${company || "-"}</p>
+<p><strong>Nachricht:</strong></p>
+<p>${message.replace(/\n/g, "<br />")}</p>
+<hr />
+<p style="font-size:12px;color:#666;">
 
-        ${body.message}
+            Diese Nachricht wurde über das Kontaktformular von laygrid.ch gesendet.
+</p>
+</div>
 
       `,
 
     });
 
-    return NextResponse.json({ ok: true });
+    return NextResponse.json({ success: true });
 
-  } catch (err) {
+  } catch (error) {
 
-    console.error("Contact error:", err);
+    console.error("Kontaktformular Fehler:", error);
 
     return NextResponse.json(
 
-      { ok: false, error: "Mailversand fehlgeschlagen" },
+      { error: "E-Mail konnte nicht gesendet werden" },
 
       { status: 500 }
 
@@ -63,4 +82,3 @@ export async function POST(req: Request) {
   }
 
 }
- 
