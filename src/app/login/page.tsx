@@ -1,25 +1,16 @@
-"use client";
-
 import { Suspense } from "react";
-import { useSearchParams } from "next/navigation";
+import LoginContent from "./LoginTemp";
 
 export default function LoginPage() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <InnerLogin />
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center bg-black text-white">
+          Anmeldung wird geladen...
+        </div>
+      }
+    >
+      <LoginContent />
     </Suspense>
-  );
-}
-
-function InnerLogin() {
-  const params = useSearchParams();
-
-  // HIER deinen bisherigen Inhalt der Login-Seite einsetzen:
-  // also das JSX, das vorher in deinem `export default function Page()` drin war.
-
-  return (
-    <div>
-      {/* dein bisheriges Login-Layout */}
-    </div>
   );
 }

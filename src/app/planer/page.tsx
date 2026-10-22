@@ -1,70 +1,44 @@
 "use client";
 
+import { useState } from "react";
 import Topbar from "@/components/planner/Topbar";
-
-import SidebarLeft from "@/components/planner/SidebarLeft";
-
 import SidebarRight from "@/components/planner/SidebarRight";
-
 import PlannerCanvas from "@/components/planner/Canvas";
-
-import { useEffect, useState } from "react";
-
+import AIModal from "@/components/planner/AIModal";
 import { usePlanner } from "@/store/planner";
 
 export default function PlanerPage() {
-
-  const { boundary, setBoundary } = usePlanner();
-
+  const { boundary } = usePlanner();
   const [rightOpen, setRightOpen] = useState(true);
 
-  useEffect(() => {
-
-    if (!boundary) {
-
-      const w = parseFloat(prompt("Gebäudebreite (m):", "20") || "0");
-
-      const d = parseFloat(prompt("Gebäudetiefe (m):", "12") || "0");
-
-      if (w > 0 && d > 0) setBoundary({ type: "rect", widthM: w, depthM: d, locked: true });
-
-    }
-
-  }, [boundary, setBoundary]);
-
   return (
-<section className="bg-bg text-text pt-16">
-<div className="w-full px-4 md:px-6 pb-8">
-<Topbar rightOpen={rightOpen} onToggleRight={() => setRightOpen(o => !o)} />
+    <div className="flex h-screen w-full flex-col bg-black text-white overflow-hidden">
+      <Topbar
+        rightOpen={rightOpen}
+        onToggleRight={() => setRightOpen((open) => !open)}
+      />
 
-        {/* Layout: links fix, Mitte flexibel, rechts ein-/ausklappbar */}
-<div className="mt-4 flex flex-col lg:flex-row gap-4 items-stretch">
+      {!boundary && (
+        <div className="border-b border-zinc-800 bg-amber-950/20 px-4 py-2 text-sm text-amber-300">
+          Lege zuerst eine Gebäudehülle fest. Danach kannst du Wände, Maschinen
+          und weitere Elemente platzieren.
+        </div>
+      )}
 
-          {/* links */}
-<div className="w-full lg:w-[14rem]">
-<SidebarLeft />
-</div>
+      <div className="flex min-h-0 flex-1">
+        <div className="min-w-0 flex-1">
+          <PlannerCanvas />
+        </div>
 
-          {/* mitte */}
-<div className="flex-1">
-<PlannerCanvas />
-</div>
+        <div
+          className="shrink-0 overflow-hidden border-l border-zinc-800 bg-black transition-[width] duration-300"
+          style={{ width: rightOpen ? "22rem" : "0rem" }}
+        >
+          {rightOpen && <SidebarRight />}
+        </div>
+      </div>
 
-          {/* rechts: animierte Breite */}
-<div
-
-            className={`w-full lg:transition-[width] lg:duration-300 overflow-hidden`}
-
-            style={{ width: rightOpen ? "16rem" : "0rem" }}
->
-
-            {rightOpen && <SidebarRight />}
-</div>
-</div>
-</div>
-</section>
-
+      <AIModal />
+    </div>
   );
-
 }
- 

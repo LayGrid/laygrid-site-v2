@@ -1,227 +1,352 @@
+
 "use client";
 
+import Link from "next/link";
 import { motion } from "framer-motion";
 
-import Image from "next/image";
-
 export default function ProduktPage() {
-
   return (
-<div className="text-white">
+    <div className="bg-black text-white">
 
-   {/* HERO SECTION – Bild + Animation wie Über uns */}
-<section className="relative w-full h-[55vh] sm:h-[70vh] md:h-[80vh] overflow-hidden">
+      {/* HERO SECTION */}
+      <section className="relative w-full h-[55vh] sm:h-[70vh] md:h-[80vh] overflow-hidden flex items-center justify-center">
 
-  {/* Hintergrundbild */}
-<Image
+        {/* Hintergrund */}
+        <div className="absolute inset-0 bg-gradient-to-br from-[#351E1C] via-[#150E0E] to-black" />
 
-    src="/prod-hero.jpg"
+        <div className="absolute top-[-100px] right-[-100px] w-[450px] h-[450px] rounded-full bg-[#733635]/20 blur-3xl" />
 
-    alt="Produkt Hero"
+        {/* Animierter Inhalt */}
+        <div className="relative z-10 flex items-center justify-center px-6 text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="max-w-3xl"
+          >
+            <p className="text-xs sm:text-sm font-semibold tracking-[0.25em] text-[#FF6037] uppercase mb-5">
+              LayGrid Software
+            </p>
 
-    fill
+            <h1 className="text-4xl sm:text-5xl font-bold mb-6 leading-tight">
+              Produktionsflächen einfach
+              <br />
+              digital planen.
+            </h1>
 
-    priority
-
-    className="object-cover object-center"
-
-  />
-
-  {/* Overlay */}
-<div className="absolute inset-0 bg-black/50" />
-
-  {/* Animierter Inhalt */}
-<div className="absolute inset-0 flex items-center justify-center px-6 text-center">
-<motion.div
-
-      initial={{ opacity: 0, y: 40 }}
-
-      animate={{ opacity: 1, y: 0 }}
-
-      transition={{ duration: 0.8, ease: "easeOut" }}
-
-      className="max-w-3xl"
->
-<h1 className="text-4xl sm:text-5xl font-bold mb-4">
-
-        LayGrid <br /> Das modulare Planungssystem
-</h1>
-<p className="text-lg sm:text-xl text-gray-200 max-w-2xl mx-auto">
-
-        Physische Modelle kombiniert mit einem digitalen Web-Planer für klare,
-
-        schnelle und intuitive Betriebsplanung.
-</p>
-</motion.div>
-</div>
-</section>
- 
- 
+            <p className="text-lg sm:text-xl text-gray-200 max-w-2xl mx-auto">
+              Eine intuitive Software zur Planung und
+              Optimierung von Produktionsflächen.
+              Entwickelt für Unternehmen, die ihre
+              Layouts einfach und flexibel gestalten möchten.
+            </p>
+          </motion.div>
+        </div>
+      </section>
 
       {/* CONTENT SECTION */}
-<section className="max-w-6xl mx-auto px-4 py-20 space-y-20">
+      <section className="max-w-6xl mx-auto px-4 py-20 space-y-20">
 
-        {/* Überblick */}
-<motion.div
-
+        {/* SOFTWARE ÜBERBLICK */}
+        <motion.div
           initial={{ opacity: 0, y: 40 }}
-
           whileInView={{ opacity: 1, y: 0 }}
-
           viewport={{ once: true }}
-
           transition={{ duration: 0.7 }}
->
-<h2 className="text-3xl font-semibold mb-4">Das Produkt</h2>
-<p className="text-gray-300 leading-relaxed max-w-3xl">
+        >
+          <h2 className="text-3xl font-semibold mb-4">
+            Die Software
+          </h2>
 
-            LayGrid besteht aus zwei Elementen: den <strong>physischen 3D-Bausteinen</strong>
+          <p className="text-gray-300 leading-relaxed max-w-3xl">
+            LayGrid ermöglicht die digitale Darstellung
+            und Gestaltung von Produktionsflächen.
+            Maschinen und Arbeitsbereiche lassen sich
+            flexibel anordnen, um verschiedene
+            Layoutvarianten zu entwickeln und
+            bestehende Flächen besser zu nutzen.
+          </p>
+        </motion.div>
 
-            und dem <strong>digitalen Web-Planer</strong>.
-
-            Beide Systeme greifen nahtlos ineinander und machen Planung intuitiv,
-
-            schnell und teamfähig.
-</p>
-</motion.div>
-
-        {/* Drei Info-Blöcke */}
-<motion.div
-
+        {/* DREI INFORMATIONSKARTEN */}
+        <motion.div
           initial={{ opacity: 0, y: 40 }}
-
           whileInView={{ opacity: 1, y: 0 }}
-
           viewport={{ once: true }}
-
           transition={{ duration: 0.7 }}
-
           className="grid sm:grid-cols-3 gap-8"
->
-<Card
-
-            title="Physische Modelle"
-
-            text="Masstabsgerecht, robust und ideal für Workshops. Maschinen & Layouts sofort sichtbar."
-
+        >
+          <Card
+            title="Einfach digital planen"
+            text="Produktionsflächen und Maschinen übersichtlich darstellen und Layouts direkt im Browser gestalten."
           />
-<Card
 
-            title="Digitaler Web-Planer"
-
-            text="Raster, Snapping, Masse, STEP-Import & Export. Klar, schnell und ohne Installation."
-
+          <Card
+            title="Varianten vergleichen"
+            text="Unterschiedliche Anordnungen testen und passende Lösungen für bestehende oder neue Produktionsflächen entwickeln."
           />
-<Card
 
-            title="Nahtlose Übergabe"
-
-            text="Vom physischen Modell direkt in den Web-Planer. Export für Partner, Offerten & BIM."
-
+          <Card
+            title="Effizienter produzieren"
+            text="Flächennutzung, Materialflüsse und Arbeitswege bei der Planung berücksichtigen und Optimierungspotenziale erkennen."
           />
-</motion.div>
+        </motion.div>
 
-        {/* Bild + Text Section – 3D Bausteine */}
-<motion.div
-
+        {/* SOFTWARE UND LAYOUTDARSTELLUNG */}
+        <motion.div
           initial={{ opacity: 0, y: 40 }}
-
           whileInView={{ opacity: 1, y: 0 }}
-
           viewport={{ once: true }}
-
           transition={{ duration: 0.7 }}
+          className="border border-white/10 rounded-2xl p-6 sm:p-10 bg-[#4B4E53]/20 backdrop-blur-sm grid md:grid-cols-2 gap-12 items-center"
+        >
 
-          className="border border-white/10 rounded-2xl p-10 bg-[#4B4E53]/20 backdrop-blur-sm grid md:grid-cols-2 gap-12 items-center"
->
-<Image
+          {/* SCHEMATISCHE SOFTWAREDARSTELLUNG */}
+          <div className="relative overflow-hidden rounded-xl border border-white/10 bg-[#151515] p-5 sm:p-7 shadow-lg">
 
-            src="/about-1.jpg"
+            <div
+              className="absolute inset-0 opacity-20"
+              style={{
+                backgroundImage:
+                  "linear-gradient(rgba(255,255,255,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.12) 1px, transparent 1px)",
+                backgroundSize: "28px 28px",
+              }}
+            />
 
-            alt="3D-Bausteine"
+            <div className="relative z-10">
+              <div className="flex items-center justify-between mb-5 gap-3">
+                <p className="text-xs uppercase tracking-[0.15em] text-[#FF6037]">
+                  Layoutplanung
+                </p>
 
-            width={700}
+                <span className="text-xs text-gray-400">
+                  Beispielansicht
+                </span>
+              </div>
 
-            height={500}
+              <div className="rounded-xl border border-white/20 bg-black/75 p-4 sm:p-5">
 
-            className="rounded-xl shadow-lg"
+                <div className="grid grid-cols-6 gap-3">
 
-          />
-<div>
-<h3 className="text-3xl font-semibold mb-4 text-white">
+                  <div className="col-span-2 h-24 rounded-lg border border-[#FF6037]/60 bg-[#FF6037]/20 flex items-center justify-center px-2">
+                    <span className="text-xs text-center">
+                      Maschine A
+                    </span>
+                  </div>
 
-              Physische 3D-Bausteine
-</h3>
-<p className="text-gray-200 text-lg leading-relaxed">
+                  <div className="col-span-2 h-24 rounded-lg border border-white/30 bg-white/10 flex items-center justify-center px-2">
+                    <span className="text-xs text-center">
+                      Montage
+                    </span>
+                  </div>
 
-              Wir vermessen Ihre Maschinen und fertigen masstabsgerechte Bausteine,
+                  <div className="col-span-2 h-24 rounded-lg border border-white/30 bg-white/10 flex items-center justify-center px-2">
+                    <span className="text-xs text-center">
+                      Lager
+                    </span>
+                  </div>
 
-              die sich perfekt für Workshops und die interne Planung eignen. Entscheidungen
+                  <div className="col-span-6 h-10 rounded-lg border border-dashed border-[#FF6037]/50 flex items-center justify-center">
+                    <span className="text-xs text-gray-300">
+                      Materialfluss
+                    </span>
+                  </div>
 
-              werden schneller, klarer und für alle greifbar.
-</p>
-</div>
-</motion.div>
+                  <div className="col-span-3 h-20 rounded-lg border border-white/30 bg-white/10 flex items-center justify-center">
+                    <span className="text-xs text-center">
+                      Maschine B
+                    </span>
+                  </div>
 
-        {/* Bild + Text Section – Web-Planer */}
-<motion.div
+                  <div className="col-span-3 h-20 rounded-lg border border-white/30 bg-white/10 flex items-center justify-center">
+                    <span className="text-xs text-center">
+                      Arbeitsplätze
+                    </span>
+                  </div>
 
+                </div>
+              </div>
+
+              <p className="text-xs text-gray-500 mt-4">
+                Vereinfachte Darstellung einer Produktionsfläche
+              </p>
+            </div>
+          </div>
+
+          {/* BESCHREIBUNG */}
+          <div>
+            <h3 className="text-3xl font-semibold mb-4">
+              Der digitale Webplaner
+            </h3>
+
+            <p className="text-gray-200 text-base sm:text-lg leading-relaxed mb-5">
+              Mit LayGrid können Produktionsflächen
+              digital gestaltet und unterschiedliche
+              Anordnungen von Maschinen und
+              Arbeitsbereichen ausprobiert werden.
+            </p>
+
+            <p className="text-gray-300 leading-relaxed mb-5">
+              Die browserbasierte Lösung soll den
+              Planungsaufwand reduzieren und
+              Unternehmen ermöglichen, ihre
+              Produktionslayouts selbstständig
+              weiterzuentwickeln.
+            </p>
+
+            <p className="text-sm text-gray-400 leading-relaxed">
+              Ein erster Softwareprototyp ist bereits
+              vorhanden und wird laufend
+              weiterentwickelt.
+            </p>
+          </div>
+
+        </motion.div>
+
+        {/* PRODUKTIONSOPTIMIERUNG */}
+        <motion.div
           initial={{ opacity: 0, y: 40 }}
-
           whileInView={{ opacity: 1, y: 0 }}
-
           viewport={{ once: true }}
-
           transition={{ duration: 0.7 }}
+          className="grid md:grid-cols-2 gap-12 items-center"
+        >
+          <div>
+            <p className="text-xs sm:text-sm font-semibold tracking-[0.2em] text-[#FF6037] uppercase mb-4">
+              Lean Management
+            </p>
 
-          className="border border-white/10 rounded-2xl p-10 bg-[#4B4E53]/20 backdrop-blur-sm grid md:grid-cols-2 gap-12 items-center"
->
-<div>
-<h3 className="text-3xl font-semibold mb-4 text-white">
+            <h3 className="text-3xl font-semibold mb-5">
+              Bestehende Produktionen optimieren.
+            </h3>
 
-              Digitaler Web-Planer
-</h3>
-<p className="text-gray-200 text-lg leading-relaxed">
+            <p className="text-gray-300 leading-relaxed mb-5">
+              Eine durchdachte Produktionsgestaltung
+              kann unnötige Wege reduzieren,
+              Materialflüsse verbessern und
+              vorhandene Flächen effizienter nutzen.
+            </p>
 
-              Der Web-Planer übernimmt automatisch das physische Layout. Dort können Sie
+            <p className="text-gray-300 leading-relaxed">
+              LayGrid verbindet digitale Layoutplanung
+              mit den Grundgedanken des Lean Managements,
+              um Verbesserungsmöglichkeiten sichtbar
+              und nachvollziehbar zu machen.
+            </p>
+          </div>
 
-              Masse anpassen, Elemente drehen, STEP-Dateien importieren und den Plan
+          <div className="grid gap-4">
+            <BenefitCard
+              number="01"
+              title="Flächen effizient nutzen"
+              text="Bestehende Produktionsbereiche neu gestalten und vorhandenen Platz besser einsetzen."
+            />
 
-              direkt an Partner, Offerten oder BIM-Prozesse weitergeben.
-</p>
-</div>
-<Image
+            <BenefitCard
+              number="02"
+              title="Materialflüsse verbessern"
+              text="Anordnungen hinterfragen und Möglichkeiten für kürzere Transportwege erkennen."
+            />
 
-            src="/about-2.jpg"
+            <BenefitCard
+              number="03"
+              title="Abläufe vereinfachen"
+              text="Produktionsstrukturen übersichtlich darstellen und Verbesserungen gezielt vorbereiten."
+            />
+          </div>
+        </motion.div>
 
-            alt="Web-Planer"
+        {/* BERATUNG */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="border border-white/10 rounded-2xl p-8 sm:p-10 bg-[#4B4E53]/20 backdrop-blur-sm"
+        >
+          <div className="max-w-3xl">
+            <p className="text-xs sm:text-sm font-semibold tracking-[0.2em] text-[#FF6037] uppercase mb-4">
+              Ergänzende Dienstleistungen
+            </p>
 
-            width={700}
+            <h3 className="text-3xl font-semibold mb-5">
+              Persönliche Beratung nach Bedarf.
+            </h3>
 
-            height={500}
+            <p className="text-gray-300 leading-relaxed mb-7">
+              Neben unserer Software unterstützen wir
+              Unternehmen bei der Analyse, Planung und
+              Optimierung ihrer Produktionsflächen.
+              Dabei stehen praxisnahe Lösungen,
+              effiziente Abläufe und die individuellen
+              Anforderungen des Unternehmens
+              im Mittelpunkt.
+            </p>
 
-            className="rounded-xl shadow-lg"
+            <Link
+              href="/kontakt"
+              className="inline-flex items-center justify-center rounded-lg px-6 py-3 text-sm font-medium bg-[#FF6037] text-black hover:bg-[#733635] hover:text-white transition-colors"
+            >
+              Kontakt aufnehmen
+            </Link>
+          </div>
+        </motion.div>
 
-          />
-</motion.div>
-</section>
-</div>
-
+      </section>
+    </div>
   );
-
 }
 
-/* Reusable Card Component */
+/* INFORMATIONSKARTEN */
 
-function Card({ title, text }: { title: string; text: string }) {
-
+function Card({
+  title,
+  text,
+}: {
+  title: string;
+  text: string;
+}) {
   return (
-<div className="bg-[#4B4E53]/30 p-6 rounded-xl border border-white/10 backdrop-blur-sm">
-<h3 className="text-xl font-semibold mb-2">{title}</h3>
-<p className="text-gray-300">{text}</p>
-</div>
+    <div className="bg-[#4B4E53]/30 p-6 rounded-xl border border-white/10 backdrop-blur-sm">
+      <h3 className="text-xl font-semibold mb-2">
+        {title}
+      </h3>
 
+      <p className="text-gray-300 leading-relaxed">
+        {text}
+      </p>
+    </div>
   );
-
 }
- 
+
+/* OPTIMIERUNGSKARTEN */
+
+function BenefitCard({
+  number,
+  title,
+  text,
+}: {
+  number: string;
+  title: string;
+  text: string;
+}) {
+  return (
+    <div className="flex gap-5 rounded-xl border border-white/10 bg-[#4B4E53]/20 p-5 backdrop-blur-sm">
+
+      <span className="text-2xl font-bold text-[#FF6037]">
+        {number}
+      </span>
+
+      <div>
+        <h4 className="text-lg font-semibold mb-2">
+          {title}
+        </h4>
+
+        <p className="text-sm text-gray-300 leading-relaxed">
+          {text}
+        </p>
+      </div>
+
+    </div>
+  );
+}

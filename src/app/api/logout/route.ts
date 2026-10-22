@@ -1,17 +1,25 @@
+// src/app/api/logout/route.ts
+
 import { NextResponse } from "next/server";
 
-export async function POST(req: Request) {
-  const form = await req.formData().catch(() => null);
-  const next = String(form?.get("next") || "/");
-
-  const res = NextResponse.redirect(new URL(next, req.url));
-  // Cookie invalidieren
-  res.cookies.set("lg_session", "", {
+function clearSessionCookie(response: NextResponse) {
+  response.cookies.set("laygrid_session", "", {
     httpOnly: true,
-    path: "/",
-    maxAge: 0,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",
+    path: "/",
+    maxAge: 0,
   });
-  return res;
+
+  return response;
+}
+
+export async function POST() {
+  return clearSessionCookie(NextResponse.json({ ok: true }));
+}
+
+export async function GET(req: Request) {
+  const url = new URL(req.url);
+  const target = new URL("/login", url.origin);
+  return clearSessionCookie(NextResponse.redirect(target));
 }

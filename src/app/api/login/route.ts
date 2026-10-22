@@ -1,28 +1,65 @@
+// src/app/api/login/route.ts
+
 import { NextResponse } from "next/server";
+import {
+  createSessionToken,
+  isValidEmail,
+  normalizeEmail,
+} from "@/lib/auth";
 
 export async function POST(req: Request) {
-  const form = await req.formData();
-  const username = String(form.get("username") || "");
-  const password = String(form.get("password") || "");
-  const next = String(form.get("next") || "/");
+  try {
+    const body = await req.json();
+    const email = normalizeEmail(body?.email ?? "");
+    const password = String(body?.password ?? "");
 
-  // Simplifizierte Login-Logik: akzeptiert jede Eingabe
-  const ok = username.length > 0 && password.length > 0;
+    const accessPassword = process.env.LAYGRID_ACCESS_PASSWORD;
+    const sessionSecret = process.env.LAYGRID_SESSION_SECRET;
 
-  const res = NextResponse.redirect(
-    new URL(ok ? next : `/login?error=1&next=${encodeURIComponent(next)}`, req.url)
-  );
+    if (!accessPassword || !sessionSecret) {
+      return NextResponse.json(
+        { error: "Server-Konfiguration fehlt." },
+        { status: 500 }
+      );
+    }
 
-  if (ok) {
-    res.cookies.set("lg_session", "1", {
+    if (!isValidEmail(email)) {
+      return NextResponse.json(
+        { error: "Bitte eine gültige E-Mail-Adresse eingeben." },
+        { status: 400 }
+      );
+    }
+
+    if (password !== accessPassword) {
+      return NextResponse.json(
+        { error: "Passwort ist falsch." },
+        { status: 401 }
+      );
+    }
+
+    const token = await createSessionToken(email, sessionSecret);
+
+    console.log(
+      `[LayGrid Login] ${new Date().toISOString()} | ${email}`
+    );
+
+    const response = NextResponse.json({ ok: true });
+
+    response.cookies.set("laygrid_session", token, {
       httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
+      secure: process.env.NODE_ENV === "production",
       path: "/",
-      maxAge: 60 * 60 * 24 * 7, // 7 Tage gültig
+      maxAge: 60 * 60 * 24 * 7,
     });
+
+    return response;
+  } catch (error) {
+    console.error("Login-Fehler:", error);
+
+    return NextResponse.json(
+      { error: "Login konnte nicht verarbeitet werden." },
+      { status: 500 }
+    );
   }
-
-  return res;
 }
-

@@ -1,161 +1,136 @@
+
 import Link from "next/link";
 
 export default function Footer() {
-
   return (
-<footer className="mt-16 border-t border-[var(--color-secondary)] bg-[var(--color-bg)]">
-<div className="container-max grid gap-8 px-4 py-10 md:grid-cols-4">
+    <footer className="mt-16 border-t border-white/10 bg-[var(--color-bg)] text-[var(--color-text)]">
 
-        {/* Kontaktblock */}
-<div>
-<div className="mb-2 text-lg font-semibold">LayGrid</div>
-<div className="text-sm leading-relaxed text-[var(--color-text)]/80">
-<div>Feldlistrasse 31</div>
-<div>9000 St. Gallen</div>
-<div className="mt-3">
-<a
+      <div className="container-max grid gap-10 px-4 py-12 md:grid-cols-3">
 
+        {/* LAYGRID UND KONTAKT */}
+        <div>
+          <Link
+            href="/"
+            className="inline-block text-xl font-semibold tracking-tight hover:text-[#FF6037] transition-colors"
+          >
+            LayGrid
+          </Link>
+
+          <p className="mt-3 max-w-xs text-sm leading-relaxed text-[var(--color-text)]/70">
+            Digitale Produktionsplanung und Optimierung.
+          </p>
+
+          <div className="mt-5 space-y-2 text-sm text-[var(--color-text)]/80">
+
+            <div>
+              <a
                 href="mailto:laygrid@outlook.com"
-
-                className="hover:text-[var(--color-accent)]"
->
-
+                className="hover:text-[#FF6037] transition-colors"
+              >
                 laygrid@outlook.com
-</a>
-</div>
-<div>
-<a
+              </a>
+            </div>
 
+            <div>
+              <a
                 href="tel:+41789401663"
-
-                className="hover:text-[var(--color-accent)]"
->
-
+                className="hover:text-[#FF6037] transition-colors"
+              >
                 +41 78 940 16 63
-</a>
-</div>
-</div>
-</div>
+              </a>
+            </div>
 
-        {/* Navigation */}
-<div className="text-sm">
-<div className="mb-2 font-semibold">Navigation</div>
-<ul className="space-y-1 text-[var(--color-text)]/80">
-<li>
-<Link href="/" className="hover:text-[var(--color-accent)]">
+          </div>
+        </div>
 
-                Start
-</Link>
-</li>
-<li>
-<Link href="/ueber-uns" className="hover:text-[var(--color-accent)]">
+        {/* NAVIGATION */}
+        <div className="text-sm">
+          <h3 className="mb-4 font-semibold text-base">
+            Navigation
+          </h3>
 
-                Ueber uns
-</Link>
-</li>
-<li>
-<Link href="/produkt" className="hover:text-[var(--color-accent)]">
+          <ul className="space-y-3 text-[var(--color-text)]/70">
 
-                Produkt
-</Link>
-</li>
-<li>
-<Link href="/kontakt" className="hover:text-[var(--color-accent)]">
+            <li>
+              <Link
+                href="/produkt"
+                className="hover:text-[#FF6037] transition-colors"
+              >
+                Software
+              </Link>
+            </li>
 
+            <li>
+              <Link
+                href="/ueber-uns"
+                className="hover:text-[#FF6037] transition-colors"
+              >
+                Über uns
+              </Link>
+            </li>
+
+            <li>
+              <Link
+                href="/kontakt"
+                className="hover:text-[#FF6037] transition-colors"
+              >
                 Kontakt
-</Link>
-</li>
-<li>
-<Link href="/planer" className="hover:text-[var(--color-accent)]">
+              </Link>
+            </li>
 
-                Planer
-</Link>
-</li>
-</ul>
-</div>
+          </ul>
+        </div>
 
-        {/* Social */}
-<div className="text-sm">
-<div className="mb-2 font-semibold">Folgen Sie uns:</div>
-<div className="flex gap-3 text-[var(--color-text)]/80">
-<a
+        {/* RECHTLICHES */}
+        <div className="text-sm">
+          <h3 className="mb-4 font-semibold text-base">
+            Rechtliches
+          </h3>
 
-              href="#"
+          <ul className="space-y-3 text-[var(--color-text)]/70">
 
-              aria-label="LinkedIn"
-
-              className="hover:text-[var(--color-accent)]"
->
-
-              in
-</a>
-<a
-
-              href="#"
-
-              aria-label="Twitter"
-
-              className="hover:text-[var(--color-accent)]"
->
-
-              X
-</a>
-<a
-
-              href="#"
-
-              aria-label="Facebook"
-
-              className="hover:text-[var(--color-accent)]"
->
-
-              f
-</a>
-</div>
-</div>
-
-        {/* Rechtliches */}
-<div className="text-sm">
-<div className="mb-2 font-semibold">Rechtliches</div>
-<ul className="space-y-1 text-[var(--color-text)]/80">
-<li>
-<Link href="/cookies" className="hover:text-[var(--color-accent)]">
-
-                Cookies
-</Link>
-</li>
-<li>
-<Link
-
+            <li>
+              <Link
                 href="/impressum"
-
-                className="hover:text-[var(--color-accent)]"
->
-
+                className="hover:text-[#FF6037] transition-colors"
+              >
                 Impressum
-</Link>
-</li>
-<li>
-<Link
+              </Link>
+            </li>
 
+            <li>
+              <Link
                 href="/datenschutz"
-
-                className="hover:text-[var(--color-accent)]"
->
-
+                className="hover:text-[#FF6037] transition-colors"
+              >
                 Datenschutz
-</Link>
-</li>
-</ul>
-</div>
-</div>
-<div className="border-t border-[var(--color-secondary)] py-3 text-center text-xs text-[var(--color-text)]/60">
+              </Link>
+            </li>
 
-        © {new Date().getFullYear()} LayGrid. Alle Rechte vorbehalten.
-</div>
-</footer>
+            <li>
+              <Link
+                href="/cookies"
+                className="hover:text-[#FF6037] transition-colors"
+              >
+                Cookies
+              </Link>
+            </li>
 
+          </ul>
+        </div>
+
+      </div>
+
+      {/* COPYRIGHT */}
+      <div className="border-t border-white/10 py-5 text-center">
+
+        <p className="text-xs text-[var(--color-text)]/50">
+          © {new Date().getFullYear()} LayGrid.
+          Alle Rechte vorbehalten.
+        </p>
+
+      </div>
+
+    </footer>
   );
-
 }
- 

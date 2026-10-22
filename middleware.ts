@@ -1,25 +1,41 @@
-import { NextResponse, NextRequest } from "next/server";
+// middleware.ts
 
-const PROTECTED_PATHS = ["/planer"]; // Hier kannst du später mehr Pfade ergänzen
+import { NextRequest, NextResponse } from "next/server";
+import { verifySessionToken } from "@/lib/auth";
 
-export function middleware(req: NextRequest) {
+export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  // Nur schützen, wenn der Pfad betroffen ist
-  const needsAuth = PROTECTED_PATHS.some((p) => pathname.startsWith(p));
-  if (!needsAuth) return NextResponse.next();
+  const sessionSecret = process.env.LAYGRID_SESSION_SECRET;
 
-  // Cookie prüfen
-  const session = req.cookies.get("lg_session")?.value;
-  if (session) return NextResponse.next();
+  if (!sessionSecret) {
+    return NextResponse.next();
+  }
 
-  // Kein Cookie: auf Login umleiten
-  const url = req.nextUrl.clone();
-  url.pathname = "/login";
-  url.searchParams.set("next", pathname + (req.nextUrl.search || ""));
-  return NextResponse.redirect(url);
+  const token = req.cookies.get("laygrid_session")?.value;
+  const isProtectedPlannerRoute = pathname.startsWith("/planer");
+  const isLoginRoute = pathname === "/login";
+
+  let sessionValid = false;
+
+  if (token) {
+    const result = await verifySessionToken(token, sessionSecret);
+    sessionValid = result.valid;
+  }
+
+  if (isProtectedPlannerRoute && !sessionValid) {
+    const loginUrl = new URL("/login", req.url);
+    loginUrl.searchParams.set("next", pathname + (req.nextUrl.search || ""));
+    return NextResponse.redirect(loginUrl);
+  }
+
+  if (isLoginRoute && sessionValid) {
+    return NextResponse.redirect(new URL("/planer", req.url));
+  }
+
+  return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/planer", "/planer/:path*"],
+  matcher: ["/planer/:path*", "/login"],
 };
